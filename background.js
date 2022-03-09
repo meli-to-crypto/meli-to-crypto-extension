@@ -1,57 +1,26 @@
-async function renderPage() {
-  async function retrieveRates() {
-    const options = {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'omit',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer'
-    };
-    return await fetchURL('https://api.belo.app/public/price', options);
-  }
+function dolarizar() {
+    // remove element of class andes-money-amount__currency-symbol (signo pesos)
+    (document.querySelectorAll('.andes-money-amount__currency-symbol') ?? []).forEach(el => el.remove());
+    // fetch rate from 'https://api.belo.app/public/rate' and use it to calculate usdt price
+    fetch('https://api.belo.app/public/price').then(resp => resp.json()).then(response=>{
+        const rate = response[3].ask;
+        console.log(rate)
+        // find all elements of class andes-money-amount__fraction
+        // Procesar todos los precios y marcarlos en rojo en la pagina
+        document.querySelectorAll('.andes-money-amount__fraction').forEach(element=>{
+            element.style.color = 'red';
+            element.innerHTML = ((element.innerHTML.replace(".", "")) / rate).toFixed(2) + " USDT";
+        })
 
-  async function fetchURL(url = '', options = {}) {
-    const response = await fetch(url, options);
-    return response.json();
-  }
-
-  function retrieveUSDT(rates = []) {
-    return rates.filter((rate) => rate.pairCode === 'USDT/ARS')[0];
-  }
-
-  function getElement(elementName) {
-    return document.getElementsByClassName(elementName);
-  }
-
-  function removeElement(elementName) {
-    const element = getElement(elementName);
-    for (let i = 0; i < element.length; i++) {
-      element[i].parentNode.removeChild(element[i]);
-    }
-  }
-
-  function changeElement(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].style.color = 'green';
-      elements[i].innerHTML =
-        (elements[i].innerHTML.replace('.', '') / ask).toFixed(2) + ' USDT';
-    }
-  }
-
-  // Main function
-  const rates = await retrieveRates();
-  const { ask } = retrieveUSDT(rates);
-  removeElement('andes-money-amount__currency-symbol');
-  changeElement(getElement('andes-money-amount__fraction'));
+        // remove element of class andes-money-amount__cents andes-money-amount__cents--superscript-18 (centavos)
+        (document.querySelectorAll('.andes-money-amount__cents') ?? []).forEach(el=>el.remove());
+    });
 }
 
 // Init Chrome extension
 chrome.action.onClicked.addListener((tab) => {
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: renderPage
+    function: dolarizar
   });
 });
