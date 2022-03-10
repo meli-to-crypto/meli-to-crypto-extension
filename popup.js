@@ -61,8 +61,8 @@ async function renderPage() {
     return document.querySelectorAll(elementName);
   }
 
-  function removeElement(elementName) {
-    const element = getElementByClassName(elementName);
+  function removeElement(cb, elementName) {
+    const element = cb(elementName);
     for (let i = 0; i < element.length; i++) {
       element[i].parentNode.removeChild(element[i]);
     }
@@ -81,11 +81,26 @@ async function renderPage() {
     return `${(originCoin / newCoin).toFixed(decimals)} ${coin}`;
   }
 
+  function removeSymbolAndCents() {
+    // Pesos symbol
+    removeElement(
+      getElementByQuerySelector,
+      '.andes-money-amount__currency-symbol'
+    );
+    // Small cents
+    removeElement(getElementByClassName, 'andes-money-amount__cents');
+    removeElement(
+      getElementByClassName,
+      '.andes-money-amount__cents andes-money-amount__cents--superscript-18'
+    );
+  }
+
   // Main function
   const rates = await retrieveRates();
   const priceToPay =
     JSON.parse(document.querySelector('[type="application/ld+json"]')?.text)
       .offers?.price || 0;
+
   // Discount
   const originalPrice =
     +document
@@ -94,13 +109,8 @@ async function renderPage() {
 
   chrome.storage.sync.get('pairCode', ({ pairCode }) => {
     const { ask } = retrieveCurrency(rates, pairCode);
-    // Remove pesos symbol
-    removeElement('.andes-money-amount__currency-symbol');
 
-    // Remove small cents amounts
-    removeElement(
-      'andes-money-amount__cents andes-money-amount__cents--superscript-18'
-    );
+    removeSymbolAndCents();
 
     chrome.storage.sync.get('code', ({ code }) => {
       // Change DOM for Price to pay element
