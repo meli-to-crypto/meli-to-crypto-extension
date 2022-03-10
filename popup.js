@@ -1,3 +1,4 @@
+// @ts-check
 let pairCode = document.getElementById("pairCode");
 
 function getDecimals(pairCode) {
@@ -54,7 +55,7 @@ async function renderPage() {
 	}
 
 	function getElement(elementName) {
-		return document.getElementsByClassName(elementName);
+		return document.querySelectorAll(elementName);
 	}
 
 	function removeElement(elementName) {
@@ -64,27 +65,38 @@ async function renderPage() {
 		}
 	}
 
-	function changeElement(elements, ask, code) {
+	function changeElement(originPrice, elements, ask, code) {
 		chrome.storage.sync.get("decimals", ({decimals}) => {
 			for (let i = 0; i < elements.length; i++) {
 				elements[i].style.color = 'green';
 				elements[i].innerHTML =
-						(elements[i].innerHTML.replace('.', '') / ask).toFixed(decimals) + ` ${code}`;
+						convertPrice(originPrice, ask, code, decimals);
 			}
-
 		});
-
 	}
-
+	
+	function convertPrice(originCoin, newCoin, coin, decimals) {
+		return `${(originCoin/newCoin).toFixed(decimals)} ${coin}`;
+	}
+	
 	// Main function
 	const rates = await retrieveRates();
+	const priceToPay = JSON.parse(document.querySelector('[type="application/ld+json"]')?.text).offers?.price || 0;
+	// Discount
+	const originalPrice = +document.querySelector('.andes-money-amount--previous .andes-visually-hidden')?.textContent?.match(/(\d+)\s+pesos/)?.[1] || 0;
+	
 	chrome.storage.sync.get("pairCode", ({pairCode}) => {
 		const {ask} = retrieveCurrency(rates, pairCode);
-		removeElement('andes-money-amount__currency-symbol');
-		chrome.storage.sync.get("code", ({code}) => {
-			changeElement(getElement('andes-money-amount__fraction'), ask, code);
-		});
+		removeElement('.andes-money-amount__currency-symbol');
 
+		chrome.storage.sync.get("code", ({code}) => {
+			// Change DOM for Price to pay element
+			const priceToPayElements = getElement(':not(.andes-money-amount--previous) > .andes-money-amount__fraction');
+			changeElement( priceToPay, priceToPayElements, ask, code );
+
+			// Change DOM for Discount Element
+			if (originalPrice !== 0) changeElement( originalPrice, getElement('.andes-money-amount--previous .andes-money-amount__fraction'), ask, code );
+		});
 	});
 
 }
