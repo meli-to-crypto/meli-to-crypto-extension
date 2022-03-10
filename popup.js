@@ -91,7 +91,7 @@ async function renderPage() {
     removeElement(getElementByClassName, 'andes-money-amount__cents');
     removeElement(
       getElementByClassName,
-      '.andes-money-amount__cents andes-money-amount__cents--superscript-18'
+      'andes-money-amount__cents andes-money-amount__cents--superscript-18'
     );
   }
 
