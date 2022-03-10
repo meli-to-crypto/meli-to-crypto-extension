@@ -61,8 +61,8 @@ async function renderPage() {
     return document.querySelectorAll(elementName);
   }
 
-  function removeElement(cb, elementName) {
-    const element = cb(elementName);
+  function removeElement(elementName) {
+    const element = getElementByQuerySelector(elementName);
     for (let i = 0; i < element.length; i++) {
       element[i].parentNode.removeChild(element[i]);
     }
@@ -83,16 +83,9 @@ async function renderPage() {
 
   function removeSymbolAndCents() {
     // Pesos symbol
-    removeElement(
-      getElementByQuerySelector,
-      '.andes-money-amount__currency-symbol'
-    );
+    removeElement('.andes-money-amount__currency-symbol');
     // Small cents
-    removeElement(getElementByClassName, 'andes-money-amount__cents');
-    removeElement(
-      getElementByClassName,
-      'andes-money-amount__cents andes-money-amount__cents--superscript-18'
-    );
+    removeElement('.andes-money-amount__cents');
   }
 
   // Main function
