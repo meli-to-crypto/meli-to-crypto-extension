@@ -1,24 +1,17 @@
 let pairCode = document.getElementById('pairCode');
 
-function getDecimals(pairCode) {
-  switch (pairCode) {
-    case 'USDT/ARS':
-      return 2;
-    case 'BTC/ARS':
-      return 5;
-    case 'ETH/ARS':
-      return 4;
-    default:
-      return 2;
-  }
+const DECIMALS = {
+  'USDT/ARS': 2,
+  'ETH/ARS': 4,
+  'BTC/ARS': 5
 }
 
 pairCode.addEventListener('change', async (event) => {
-  let pairCode = event.target.value;
+  let pairCode = event.target.value ?? 2;
   chrome.storage.sync.set({ pairCode });
   let code = pairCode.split('/')[0];
   chrome.storage.sync.set({ code });
-  let decimals = getDecimals(pairCode);
+  let decimals = DECIMALS[pairCode]
   chrome.storage.sync.set({ decimals });
 
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
