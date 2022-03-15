@@ -1,10 +1,10 @@
-import { JSDOM } from './jsdom';
-import { Meli } from './meli';
-import { Rates } from './rates';
+import { Currency } from './services/currency';
+import { JSDOM } from './services/jsdom';
+import { Meli } from './services/meli';
 
 const jsdom = new JSDOM();
 const meli = new Meli();
-const rates = new Rates();
+const currency = new Currency();
 
 chrome.runtime.onMessage.addListener(async function (
   msg,
@@ -20,8 +20,9 @@ chrome.runtime.onMessage.addListener(async function (
       ':not(.andes-money-amount--previous) > .andes-money-amount__fraction'
     );
 
-    const rate = await rates.retrieveRates();
-    const { ask } = rates.retrieveCurrency(rate, msg.rate);
+    const rates = await currency.retrieveRates();
+    console.log('🚀 => rate', rates);
+    const { ask } = currency.retrieveCurrency(rates, msg.rate);
 
     const priceToPay = meli.retrievePriceToPay();
     // const priceDiscount = meli.retrieveDiscount();
@@ -42,7 +43,7 @@ function changeElement(
 ) {
   for (let i = 0; i < elements.length; i++) {
     elements[i].style.color = 'green';
-    elements[i].innerHTML = rates.convertPrice(
+    elements[i].innerHTML = currency.convertPrice(
       originPrice,
       ask,
       code,

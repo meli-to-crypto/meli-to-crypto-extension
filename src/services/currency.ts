@@ -1,4 +1,4 @@
-export class Rates {
+export class Currency {
   async retrieveRates() {
     const options = {
       method: 'GET',
