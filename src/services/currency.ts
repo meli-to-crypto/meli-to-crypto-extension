@@ -1,3 +1,5 @@
+import { Belo, RatesDecimal, RatesPair } from '../models/crypto';
+
 export class Currency {
   async retrieveRates() {
     const options = {
@@ -18,8 +20,12 @@ export class Currency {
     return response.json();
   }
 
-  retrieveCurrency(rates: Array<any>, pairCode: any) {
+  retrieveCurrency(rates: Array<Belo>, pairCode: RatesPair) {
     return rates.filter((rate) => rate.pairCode === pairCode)[0];
+  }
+
+  retrieveCurrencyDecimals(pairCode: RatesPair) {
+    return RatesDecimal[pairCode];
   }
 
   convertPrice(

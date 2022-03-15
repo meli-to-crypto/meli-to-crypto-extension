@@ -7,13 +7,21 @@ export interface Belo {
   spread: string;
 }
 
-export enum Rates {
-  BTC = 'BTC/',
-  ETH = 'ETH',
-  DAI = 'DAI',
-  USDT = 'USDT',
-  USDC = 'USDC'
-}
+export const RatesDecimal = {
+  'BTC/ARS': 5,
+  'ETH/ARS': 4,
+  'DAI/ARS': 2,
+  'USDT/ARS': 2,
+  'USDC/ARS': 2,
+  'ETH/BTC': 4,
+  'BTC/DAI': 2,
+  'BTC/USDT': 2,
+  'ETH/DAI': 2,
+  'ETH/USDT': 2,
+  'DAI/USDT': 2,
+  'DAI/USDC': 2,
+  'USDC/USDT': 2
+};
 
 export enum RatesPair {
   BTC_ARS = 'BTC/ARS',

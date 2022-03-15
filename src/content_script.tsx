@@ -11,9 +11,6 @@ chrome.runtime.onMessage.addListener(async function (
   sender,
   sendResponse
 ) {
-  console.log('🚀 => msg', msg);
-  console.log('🚀 => sender', sender);
-
   if (msg.rate) {
     // Change DOM for Price to pay element
     const priceToPayElements = jsdom.getElementByQuerySelectorAll(
@@ -23,8 +20,10 @@ chrome.runtime.onMessage.addListener(async function (
     const rates = await currency.retrieveRates();
     console.log('🚀 => rate', rates);
     const { ask } = currency.retrieveCurrency(rates, msg.rate);
+    console.log('🚀 => ask', ask);
 
     const priceToPay = meli.retrievePriceToPay();
+    console.log('🚀 => priceToPay', priceToPay);
     // const priceDiscount = meli.retrieveDiscount();
     jsdom.removeSymbolAndCents();
 

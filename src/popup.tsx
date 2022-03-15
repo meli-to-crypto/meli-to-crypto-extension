@@ -1,26 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Rates, RatesPair } from './models/crypto';
+import { RatesPair } from './models/crypto';
 
 const Popup = () => {
   const pairCode = [
     {
       label: RatesPair.USDT_ARS,
-      value: Rates.USDT
+      value: RatesPair.USDT_ARS
     },
     {
       label: RatesPair.ETH_ARS,
-      value: Rates.ETH
+      value: RatesPair.ETH_ARS
     },
     {
       label: RatesPair.BTC_ARS,
-      value: Rates.BTC
+      value: RatesPair.BTC_ARS
     }
   ];
 
   const handleChange = async (event: any) => {
-    console.log('🚀 => handleChange => event', event);
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
       if (tab.id) {
