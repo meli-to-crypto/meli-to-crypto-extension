@@ -7,26 +7,18 @@
 
 ---
 
-<p align="center">
-<h2>Que hace esta extension?</h2>
-
-Esta extension convierte los precios en mercado libre argentina a USDT usando la cotizacion de [belo.app](https://simple.belo.app/app/referral?referralId=8cNBuoEM&campaign=REVENUE_SHARING)
-
-</p>
-
 ## 📝 Tabla de contenidos
 
 - [Acerca](#acerca)
 - [Descarga](#descarga)
 - [Comenzar con el projecto](#getting_started)
-- [Implementación](#implementacion)
 - [Deployment](#deployment)
 - [Construido con](#built_using)
 - [Autores](#authors)
 
 ## 🧐 Acerca <a name = "acerca"></a>
 
-Sales & product management system with suppliers, purchases & statistics.
+Esta extension convierte los precios en mercado libre argentina a USDT usando la cotizacion de [belo.app](https://simple.belo.app/app/referral?referralId=8cNBuoEM&campaign=REVENUE_SHARING)
 
 ## ⏬ Descarga <a name = "descarga"></a>
 
@@ -34,9 +26,9 @@ La extension puede descargarse desde [este link](https://chrome.google.com/webst
 
 ## 🏁 Comenzar con el projecto <a name = "getting_started"></a>
 
-Estas instrucciones le proporcionarán una copia del proyecto en funcionamiento en su máquina local para fines de desarrollo y prueba. Consulte [Implementación](#implementacion) para obtener notas sobre cómo implementar el proyecto en un sistema en vivo.
+Estas instrucciones le proporcionarán una copia del proyecto en funcionamiento en su máquina local para fines de desarrollo y prueba. Consulte [Deployment](#deployment) para obtener notas sobre cómo implementar el proyecto en un sistema en vivo.
 
-### Implementación
+## 💻 Deployment
 
 Con esta serie de ejemplos paso a paso que le indicamos cómo poner en marcha un entorno de desarrollo para que usted pueda desarrollar.
 
