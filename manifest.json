@@ -1,13 +1,12 @@
 {
   "name": "Meli a USDT",
   "manifest_version": 3,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Cambia los precios de Mercadolibre a USDT",
-  "permissions": [
-    "activeTab",
-    "scripting",
-    "storage"
-  ],
+  "permissions": ["activeTab", "scripting", "storage"],
+  "background": {
+    "service_worker": "popup.js"
+  },
   "action": {
     "default_popup": "popup.html"
   }
