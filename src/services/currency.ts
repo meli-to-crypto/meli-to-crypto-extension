@@ -1,7 +1,7 @@
 import { Belo, RatesDecimal, RatesPair } from '../models/crypto';
 
 export class Currency {
-  async retrieveRates() {
+  async getRates() {
     const options = {
       method: 'GET',
       mode: 'cors',
@@ -20,11 +20,11 @@ export class Currency {
     return response.json();
   }
 
-  retrieveCurrency(rates: Array<Belo>, pairCode: RatesPair) {
+  getCurrency(rates: Array<Belo>, pairCode: RatesPair) {
     return rates.filter((rate) => rate.pairCode === pairCode)[0];
   }
 
-  retrieveCurrencyDecimals(pairCode: RatesPair) {
+  getCurrencyDecimals(pairCode: RatesPair) {
     return RatesDecimal[pairCode];
   }
 
@@ -32,7 +32,7 @@ export class Currency {
     priceToPay: number,
     newPrice: number,
     rateCode: any,
-    decimals: number | undefined
+    decimals?: number
   ) {
     return `${(priceToPay / newPrice).toFixed(decimals)} ${rateCode}`;
   }

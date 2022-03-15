@@ -6,13 +6,17 @@ const jsdom = new JSDOM();
 const currency = new Currency();
 
 export class Meli {
-  async retrieveRatesAndCurrency(rateCode: RatesPair) {
-    const rates = await currency.retrieveRates();
-    const { ask } = currency.retrieveCurrency(rates, rateCode);
+  getCurrencyDecimal(pairCode: RatesPair) {
+    return currency.getCurrencyDecimals(pairCode);
+  }
+
+  async getRatesAndCurrency(rateCode: RatesPair) {
+    const rates = await currency.getRates();
+    const { ask } = currency.getCurrency(rates, rateCode);
     return ask;
   }
 
-  retrievePriceToPay() {
+  getPriceToPay() {
     return (
       JSON.parse(
         jsdom.getElementByQuerySelector('[type="application/ld+json"]')?.text
@@ -20,7 +24,7 @@ export class Meli {
     );
   }
 
-  retrieveDiscount() {
+  getDiscount() {
     return (
       jsdom
         .getElementByQuerySelector(
@@ -30,7 +34,31 @@ export class Meli {
     );
   }
 
-  // Change DOM for Price to pay element
+  //TODO: Nombre no se q es esto
+  getDiscountElement() {
+    return jsdom.getElementByQuerySelector(
+      '.andes-money-amount--previous .andes-money-amount__fraction'
+    );
+  }
+
+  changePricePage(
+    priceToPay: any,
+    priceToPayElements: any,
+    priceInARS: any,
+    rateCode: any,
+    decimals?: any
+  ) {
+    for (let i = 0; i < priceToPayElements.length; i++) {
+      priceToPayElements[i].style.color = 'green';
+      priceToPayElements[i].innerHTML = currency.convertPrice(
+        priceToPay,
+        priceInARS,
+        rateCode,
+        decimals
+      );
+    }
+  }
+
   changeDOMPricePayElement() {
     return jsdom.getElementByQuerySelectorAll(
       ':not(.andes-money-amount--previous) > .andes-money-amount__fraction'
