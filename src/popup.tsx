@@ -1,3 +1,5 @@
+import './popup.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -38,11 +40,13 @@ const Popup = () => {
 
   return (
     <>
-      <select onChange={handleChange}>
-        {pairCode.map((option) => (
-          <option value={option.value}>{option.label}</option>
-        ))}
-      </select>
+      <div className="select">
+        <select onChange={handleChange}>
+          {pairCode.map((option) => (
+            <option value={option.value}>{option.label}</option>
+          ))}
+        </select>
+      </div>
     </>
   );
 };
