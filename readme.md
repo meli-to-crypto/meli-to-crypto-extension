@@ -2,8 +2,10 @@
 
 Esta extension convierte los precios en mercado libre argentina a USDT usando la cotizacion de [belo.app](https://simple.belo.app/app/referral?referralId=8cNBuoEM&campaign=REVENUE_SHARING)
 
+La extension puede descargarse desde [este link](https://chrome.google.com/webstore/detail/meli-a-usdt/pabjndhejioccdbodimjhmgbjhhgphgl)
 
-### Instrucciones para probar la extension
+
+### Instrucciones para instalar la extension en modo desarrollo
 
 1. Bajate el zip del repo
 2. En chrome o Brave anda a gestionar las extensiones
