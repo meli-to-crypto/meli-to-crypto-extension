@@ -12,22 +12,23 @@ chrome.runtime.onMessage.addListener(async function (
   sendResponse
 ) {
   if (msg.rate) {
+    const rateCode = msg.rate;
     // Change DOM for Price to pay element
     const priceToPayElements = jsdom.getElementByQuerySelectorAll(
       ':not(.andes-money-amount--previous) > .andes-money-amount__fraction'
     );
 
     const rates = await currency.retrieveRates();
-    console.log('🚀 => rate', rates);
-    const { ask } = currency.retrieveCurrency(rates, msg.rate);
-    console.log('🚀 => ask', ask);
-
+    const { ask } = currency.retrieveCurrency(rates, rateCode);
     const priceToPay = meli.retrievePriceToPay();
-    console.log('🚀 => priceToPay', priceToPay);
     // const priceDiscount = meli.retrieveDiscount();
+    const codeRate = rateCode.split('/')[0];
+    const decimals = currency.retrieveCurrencyDecimals(rateCode);
+    console.log('🚀 => decimals', decimals);
+
     jsdom.removeSymbolAndCents();
 
-    changeElement(priceToPay, priceToPayElements, ask, 'USDT', '.11');
+    changeElement(priceToPay, priceToPayElements, ask, codeRate, decimals);
   } else {
     sendResponse('error');
   }
