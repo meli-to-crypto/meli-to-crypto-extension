@@ -6,5 +6,4 @@ All notable changes to the "meli-to-crypto" extension will be documented in this
 
 ### Added
 
-- Changed white color on parameters to cyan
-- Fixed colors on default dark
+- Refactored JavaScript to TypeScript & React
