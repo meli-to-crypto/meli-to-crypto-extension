@@ -2,8 +2,8 @@ import { JSDOM } from './jsdom';
 import { Meli } from './meli';
 import { Rates } from './rates';
 
-const meli = new Meli();
 const jsdom = new JSDOM();
+const meli = new Meli();
 const rates = new Rates();
 
 chrome.runtime.onMessage.addListener(async function (

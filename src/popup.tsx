@@ -17,14 +17,15 @@ const Popup = () => {
     }
   ];
 
-  const changeRates = async () => {
+  const handleChange = async (event: any) => {
+    console.log('🚀 => handleChange => event', event);
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
       if (tab.id) {
         chrome.tabs.sendMessage(
           tab.id,
           {
-            rate: 'USDT/ARS'
+            rate: event.target.value
           },
           async (msg) => {
             console.log('result message:', msg);
@@ -36,12 +37,11 @@ const Popup = () => {
 
   return (
     <>
-      <select value="banana">
+      <select onChange={handleChange}>
         {pairCode.map((option) => (
           <option value={option.value}>{option.label}</option>
         ))}
       </select>
-      <button onClick={changeRates}>quiero USDT</button>
     </>
   );
 };
