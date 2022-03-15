@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener(async function (
 
     const priceToPay = meli.getPriceToPay();
 
-    const priceToPayElements = meli.changeDOMPricePayElement();
+    const priceToPayElements = meli.getPricePayElement();
 
     const priceDiscount = meli.getDiscount();
 
@@ -41,7 +41,8 @@ chrome.runtime.onMessage.addListener(async function (
       priceDiscount,
       priceDiscountElements,
       priceInARS,
-      codeRate
+      codeRate,
+      decimals
     );
   } else {
     sendResponse('didn`t select a rate or error');

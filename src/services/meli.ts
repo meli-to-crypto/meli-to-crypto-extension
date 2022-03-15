@@ -35,7 +35,7 @@ export class Meli {
   }
 
   getDiscountElement() {
-    return jsdom.getElementByQuerySelector(
+    return jsdom.getElementByQuerySelectorAll(
       '.andes-money-amount--previous .andes-money-amount__fraction'
     );
   }
@@ -46,14 +46,14 @@ export class Meli {
 
   changePricePage(
     priceToPay: any,
-    priceToPayElements: any,
+    elements: any,
     priceInARS: any,
     rateCode: any,
     decimals?: any
   ) {
-    for (let i = 0; i < priceToPayElements.length; i++) {
-      priceToPayElements[i].style.color = 'green';
-      priceToPayElements[i].innerHTML = currency.convertPrice(
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.color = 'green';
+      elements[i].innerHTML = currency.convertPrice(
         priceToPay,
         priceInARS,
         rateCode,
@@ -62,7 +62,7 @@ export class Meli {
     }
   }
 
-  changeDOMPricePayElement() {
+  getPricePayElement() {
     return jsdom.getElementByQuerySelectorAll(
       ':not(.andes-money-amount--previous) > .andes-money-amount__fraction'
     );
