@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { Rates, RatesPair } from './models/crypto';
+
 const Popup = () => {
   const pairCode = [
     {
-      label: 'USDT/ARS',
-      value: 'USDT'
+      label: RatesPair.USDT_ARS,
+      value: Rates.USDT
     },
     {
-      label: 'ETH/ARS',
-      value: 'ETH'
+      label: RatesPair.ETH_ARS,
+      value: Rates.ETH
     },
     {
-      label: 'BTC/ARS',
-      value: 'BTC'
+      label: RatesPair.BTC_ARS,
+      value: Rates.BTC
     }
   ];
 

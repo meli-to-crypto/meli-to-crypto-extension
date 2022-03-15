@@ -8,17 +8,25 @@ export interface Belo {
 }
 
 export enum Rates {
-  'BTC/ARS' = 'BTC/ARS',
-  'ETH/ARS' = 'ETH/ARS',
-  'DAI/ARS' = 'DAI/ARS',
-  'USDT/ARS' = 'USDT/ARS',
-  'USDC/ARS' = 'USDC/ARS',
-  'ETH/BTC' = 'ETH/BTC',
-  'BTC/DAI' = 'BTC/DAI',
-  'BTC/USDT' = 'BTC/USDT',
-  'ETH/DAI' = 'ETH/DAI',
-  'ETH/USDT' = 'ETH/USDT',
-  'DAI/USDT' = 'DAI/USDT',
-  'DAI/USDC' = 'DAI/USDC',
-  'USDC/USDT' = 'TRX/ARS'
+  BTC = 'BTC/',
+  ETH = 'ETH',
+  DAI = 'DAI',
+  USDT = 'USDT',
+  USDC = 'USDC'
+}
+
+export enum RatesPair {
+  BTC_ARS = 'BTC/ARS',
+  ETH_ARS = 'ETH/ARS',
+  DAI_ARS = 'DAI/ARS',
+  USDT_ARS = 'USDT/ARS',
+  USDC_ARS = 'USDC/ARS',
+  ETH_BTC = 'ETH/BTC',
+  BTC_DAI = 'BTC/DAI',
+  BTC_USDT = 'BTC/USDT',
+  ETH_DAI = 'ETH/DAI',
+  ETH_USDT = 'ETH/USDT',
+  DAI_USDT = 'DAI/USDT',
+  DAI_USDC = 'DAI/USDC',
+  USDC_USDT = 'USDC/USDT'
 }
