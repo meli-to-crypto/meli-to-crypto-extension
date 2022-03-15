@@ -8,6 +8,10 @@ import { RatesPair } from './models/crypto';
 const Popup = () => {
   const pairCode = [
     {
+      label: 'Seleccionar',
+      value: RatesPair.USDT_ARS
+    },
+    {
       label: RatesPair.USDT_ARS,
       value: RatesPair.USDT_ARS
     },
@@ -40,8 +44,9 @@ const Popup = () => {
 
   return (
     <>
+      <h1 className="title">Convertir Meli a Crypto</h1>
       <div className="select">
-        <select onChange={handleChange}>
+        <select className="select" onChange={handleChange}>
           {pairCode.map((option) => (
             <option value={option.value}>{option.label}</option>
           ))}
