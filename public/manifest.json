@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Meli a Crypto",
-  "description": "Cambia los precios de Mercadolibre a Crypto",
+  "description": "Cambia los precios de Mercadolibre a Crypto en tiempo real",
   "version": "1.0",
   "options_ui": {
     "page": "options.html"
