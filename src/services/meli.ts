@@ -34,7 +34,6 @@ export class Meli {
     );
   }
 
-  //TODO: Nombre no se q es esto
   getDiscountElement() {
     return jsdom.getElementByQuerySelector(
       '.andes-money-amount--previous .andes-money-amount__fraction'
