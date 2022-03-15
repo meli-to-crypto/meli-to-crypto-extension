@@ -1,3 +1,7 @@
+import { JSDOM } from './jsdom';
+
+const DOM = new JSDOM();
+
 export class Rates {
   changePriceOnMeli() {
     // const priceToPay =
@@ -49,21 +53,6 @@ export class Rates {
     return rates.filter((rate) => rate.pairCode === pairCode)[0];
   }
 
-  getElementByClassName(elementName: string) {
-    return document.getElementsByClassName(elementName);
-  }
-
-  getElementByQuerySelector(elementName: any) {
-    return document.querySelectorAll(elementName);
-  }
-
-  removeElement(elementName: any) {
-    const element = this.getElementByQuerySelector(elementName);
-    for (let i = 0; i < element.length; i++) {
-      element[i].parentNode.removeChild(element[i]);
-    }
-  }
-
   changeElement(
     originPrice: any,
     elements: string | any[],
@@ -94,8 +83,8 @@ export class Rates {
 
   removeSymbolAndCents() {
     // Pesos symbol
-    this.removeElement('.andes-money-amount__currency-symbol');
+    DOM.removeElement('.andes-money-amount__currency-symbol');
     // Small cents
-    this.removeElement('.andes-money-amount__cents');
+    DOM.removeElement('.andes-money-amount__cents');
   }
 }

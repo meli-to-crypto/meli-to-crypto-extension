@@ -12,8 +12,6 @@ chrome.runtime.onMessage.addListener(async function (
   if (msg.rate) {
     const rate = await rates.retrieveRates();
     const { ask } = rates.retrieveCurrency(rate, msg.rate);
-    console.log('🚀 => ask', ask);
-
     rates.removeSymbolAndCents();
   } else {
     sendResponse('error');

@@ -15,24 +15,6 @@ const Popup = () => {
     });
   }, []);
 
-  const changeBackground = async () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const tab = tabs[0];
-      if (tab.id) {
-        chrome.tabs.sendMessage(
-          tab.id,
-          {
-            color: '#555555'
-          },
-          async (msg) => {
-            console.log('result message:', msg);
-            console.log('paso');
-          }
-        );
-      }
-    });
-  };
-
   const changeRates = async () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
@@ -62,7 +44,6 @@ const Popup = () => {
       >
         count up
       </button>
-      <button onClick={changeBackground}>change background</button>
       <button onClick={changeRates}>quiero USDT</button>
     </>
   );
