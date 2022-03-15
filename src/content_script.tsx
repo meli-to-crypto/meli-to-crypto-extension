@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener(async function (
 
     const priceDiscountElements = meli.getDiscountElement();
 
-    const codeRate = rateCode.split('/')[0];
+    const codeRate = meli.splitRateCode(rateCode);
 
     const decimals = meli.getCurrencyDecimal(rateCode);
 

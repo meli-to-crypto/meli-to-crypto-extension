@@ -30,10 +30,10 @@ export class Currency {
 
   convertPrice(
     priceToPay: number,
-    newPrice: number,
+    priceInARS: number,
     rateCode: any,
     decimals?: number
   ) {
-    return `${(priceToPay / newPrice).toFixed(decimals)} ${rateCode}`;
+    return `${(priceToPay / priceInARS).toFixed(decimals)} ${rateCode}`;
   }
 }

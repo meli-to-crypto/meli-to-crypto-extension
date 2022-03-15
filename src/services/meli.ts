@@ -40,6 +40,10 @@ export class Meli {
     );
   }
 
+  splitRateCode(rateCode: RatesPair) {
+    return rateCode.split('/')[0];
+  }
+
   changePricePage(
     priceToPay: any,
     priceToPayElements: any,
