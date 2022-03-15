@@ -29,11 +29,11 @@ export class Currency {
   }
 
   convertPrice(
-    originCoin: number,
-    newCoin: number,
-    coin: any,
+    priceToPay: number,
+    newPrice: number,
+    rateCode: any,
     decimals: number | undefined
   ) {
-    return `${(originCoin / newCoin).toFixed(decimals)} ${coin}`;
+    return `${(priceToPay / newPrice).toFixed(decimals)} ${rateCode}`;
   }
 }

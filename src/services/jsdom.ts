@@ -17,11 +17,4 @@ export class JSDOM {
       element[i].parentNode.removeChild(element[i]);
     }
   }
-
-  removeSymbolAndCents() {
-    // Pesos symbol
-    this.removeElement('.andes-money-amount__currency-symbol');
-    // Small cents
-    this.removeElement('.andes-money-amount__cents');
-  }
 }
