@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Meli a Crypto",
+  "description": "Cambia los precios de Mercadolibre a Crypto en tiempo real",
+  "version": "2.0.0",
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.mercadolibre.com.ar/*"],
+      "js": ["js/vendor.js", "js/content_script.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "host_permissions": ["https://*.mercadolibre.com.ar/*"]
+}
