@@ -12,6 +12,14 @@ const Popup = () => {
       value: RatesPair.USDT_ARS
     },
     {
+      label: RatesPair.DAI_ARS,
+      value: RatesPair.DAI_ARS
+    },
+    {
+      label: RatesPair.USDC_ARS,
+      value: RatesPair.USDC_ARS
+    },
+    {
       label: RatesPair.USDT_ARS,
       value: RatesPair.USDT_ARS
     },
