@@ -47,8 +47,10 @@ const Popup = () => {
       <h1 className="title">Convertir Meli a Crypto</h1>
       <div className="select">
         <select className="select" onChange={handleChange}>
-          {pairCode.map((option) => (
-            <option value={option.value}>{option.label}</option>
+          {pairCode.map((option, i) => (
+            <option key={i} value={option.value}>
+              {option.label}
+            </option>
           ))}
         </select>
       </div>
