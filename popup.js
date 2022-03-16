@@ -31,6 +31,12 @@ pairCode.addEventListener("change", async (event) => {
 });
 
 async function renderPage() {
+	// Parent sections of pricing information
+	let pricingElementsSelector = '.andes-money-amount, .price-tag-amount, .item-price, .item-price--old';
+	let pricingSubElementSymbols = '.andes-money-amount__currency-symbol, .price-tag-symbol, .price-symbol';
+	let pricingSubElementFraction = '.andes-money-amount__fraction, .price-tag-fraction, .price-fraction';
+	let pricingSubElementCents = '.andes-money-amount__cents, .price-tag-cents, .price-cents';
+	
 	async function retrieveRates() {
 		const options = {
 			method: 'GET',
@@ -65,37 +71,45 @@ async function renderPage() {
 		}
 	}
 
-	function changeElement(originPrice, elements, ask, code) {
+	// Join MELI's amount v cents into standard format
+	function preparePricingFloat(price, cents = '0') {
+		return parseFloat( [ price.replace('.',''), cents ].join('.') );
+	}
+
+	function changePricing(elements, ask, code) {
 		chrome.storage.sync.get("decimals", ({decimals}) => {
 			for (let i = 0; i < elements.length; i++) {
-				elements[i].style.color = 'green';
-				elements[i].innerHTML =
-						convertPrice(originPrice, ask, code, decimals);
+				let price_symbol = elements[i].querySelector(pricingSubElementSymbols);
+				let price_fraction = elements[i].querySelector(pricingSubElementFraction);
+				let price_cents = elements[i].querySelector(pricingSubElementCents);
+				
+				// Store original ARS pricing information on each pricing element
+				if ( price_symbol.getAttribute('m2c-original') == null ) {
+					elements[i].setAttribute('m2c-original', 'stored');
+					price_symbol.setAttribute('m2c-original', price_symbol.innerHTML);
+					price_fraction.setAttribute('m2c-original', preparePricingFloat(price_fraction.innerHTML, price_cents?.innerHTML || "0"));
+				}
+
+				price_symbol.innerHTML = code;
+				price_fraction.innerHTML = convertPrice( price_fraction.getAttribute('m2c-original'), ask, decimals);
+				price_cents ? price_cents.innerHTML = '' : null;
 			}
 		});
 	}
 	
-	function convertPrice(originCoin, newCoin, coin, decimals) {
-		return `${(originCoin/newCoin).toFixed(decimals)} ${coin}`;
+	function convertPrice(originCoin, newCoin, decimals) {
+		return `${(originCoin/newCoin).toFixed(decimals)}`;
 	}
 	
 	// Main function
 	const rates = await retrieveRates();
-	const priceToPay = JSON.parse(document.querySelector('[type="application/ld+json"]')?.text).offers?.price || 0;
-	// Discount
-	const originalPrice = +document.querySelector('.andes-money-amount--previous .andes-visually-hidden')?.textContent?.match(/(\d+)\s+pesos/)?.[1] || 0;
 	
 	chrome.storage.sync.get("pairCode", ({pairCode}) => {
 		const {ask} = retrieveCurrency(rates, pairCode);
-		removeElement('.andes-money-amount__currency-symbol');
+		const pricingElements = getElement(pricingElementsSelector);
 
 		chrome.storage.sync.get("code", ({code}) => {
-			// Change DOM for Price to pay element
-			const priceToPayElements = getElement(':not(.andes-money-amount--previous) > .andes-money-amount__fraction');
-			changeElement( priceToPay, priceToPayElements, ask, code );
-
-			// Change DOM for Discount Element
-			if (originalPrice !== 0) changeElement( originalPrice, getElement('.andes-money-amount--previous .andes-money-amount__fraction'), ask, code );
+			changePricing( pricingElements, ask, code );
 		});
 	});
 
