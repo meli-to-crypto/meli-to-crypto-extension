@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img src="src/api/core/utils/misproductos.png" alt="Project logo"></a>
+ <img src="public/logo.png" alt="Project logo"></a>
 </p>
 
 <h1 align="center">Meli a Crypto</h1>
