@@ -54,3 +54,4 @@ npm run watch
 - [@andresgardiol](https://github.com/andresgardiol) - Contribuidor
 - [@juansegnana](https://github.com/juansegnana) - Contribuidor
 - [@toyamarodrigo](https://github.com/toyamarodrigo) - Contribuidor
+- [@agustinsaldias](https://github.com/agustinsaldias) - Contribuidor

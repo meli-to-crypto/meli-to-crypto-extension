@@ -16,62 +16,41 @@ export class Meli {
     return ask;
   }
 
-  getPriceToPay() {
-    return (
-      JSON.parse(
-        jsdom.getElementByQuerySelector('[type="application/ld+json"]')?.text
-      ).offers?.price || 0
-    );
-  }
-
-  getDiscount() {
-    return (
-      jsdom
-        .getElementByQuerySelector(
-          '.andes-money-amount--previous .andes-visually-hidden'
-        )
-        ?.textContent?.match(/(\d+)\s+pesos/)?.[1] || 0
-    );
-  }
-
-  getDiscountElement() {
-    return jsdom.getElementByQuerySelectorAll(
-      '.andes-money-amount--previous .andes-money-amount__fraction'
-    );
-  }
-
   splitRateCode(rateCode: RatesPair) {
     return rateCode.split('/')[0];
   }
 
+  parseOriginalPrice(price: any, cents = '0') {
+    return parseFloat([price.replace('.', ''), cents].join('.'));
+  }
+
   changePricePage(
-    priceToPay: any,
     elements: any,
     priceInARS: any,
     rateCode: any,
     decimals?: any
   ) {
     for (let i = 0; i < elements.length; i++) {
-      elements[i].style.color = 'green';
-      elements[i].innerHTML = currency.convertPrice(
-        priceToPay,
-        priceInARS,
-        rateCode,
-        decimals
-      );
+      let price_symbol = elements[i].querySelector('.andes-money-amount__currency-symbol, .price-tag-symbol, .price-symbol');
+      let price_fraction = elements[i].querySelector('.andes-money-amount__fraction, .price-tag-fraction, .price-fraction');
+      let price_cents = elements[i].querySelector('.andes-money-amount__cents, .price-tag-cents, .price-cents');
+
+      // Store original ARS pricing information on each pricing element
+      if (price_symbol.getAttribute('m2c-original') == null) {
+        elements[i].setAttribute('m2c-original', 'stored');
+        price_symbol.setAttribute('m2c-original', price_symbol.innerHTML);
+        price_fraction.setAttribute('m2c-original', this.parseOriginalPrice(price_fraction.innerHTML, price_cents?.innerHTML || "0"));
+      }
+
+      price_symbol.innerHTML = rateCode;
+      price_fraction.innerHTML = currency.convertPrice(price_fraction.getAttribute('m2c-original'), priceInARS, decimals);
+      price_cents ? price_cents.innerHTML = '' : null;
     }
   }
 
-  getPricePayElement() {
+  getPricingElements() {
     return jsdom.getElementByQuerySelectorAll(
-      ':not(.andes-money-amount--previous) > .andes-money-amount__fraction'
+      '.andes-money-amount, .price-tag-amount, .item-price, .item-price--old'
     );
-  }
-
-  removeSymbolAndCents() {
-    // Pesos symbol
-    jsdom.removeElement('.andes-money-amount__currency-symbol');
-    // Small cents
-    jsdom.removeElement('.andes-money-amount__cents');
   }
 }
