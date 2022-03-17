@@ -20,7 +20,7 @@ export class Meli {
     return rateCode.split('/')[0];
   }
 
-  parseOriginalPrice(price: any, cents = '0') {
+  parseOriginalPrice(price: string, cents: string = '0') {
     return parseFloat([price.replace('.', ''), cents].join('.'));
   }
 
@@ -35,6 +35,8 @@ export class Meli {
       let price_fraction = elements[i].querySelector('.andes-money-amount__fraction, .price-tag-fraction, .price-fraction');
       let price_cents = elements[i].querySelector('.andes-money-amount__cents, .price-tag-cents, .price-cents');
 
+      if (!price_symbol || !price_fraction)
+        continue;
       // Store original ARS pricing information on each pricing element
       if (price_symbol.getAttribute('m2c-original') == null) {
         elements[i].setAttribute('m2c-original', 'stored');
@@ -50,7 +52,7 @@ export class Meli {
 
   getPricingElements() {
     return jsdom.getElementByQuerySelectorAll(
-      '.andes-money-amount, .price-tag-amount, .item-price, .item-price--old'
+      '.andes-money-amount, .price-tag-amount, .item-price, .item-price--old, .price-tag'
     );
   }
 }
