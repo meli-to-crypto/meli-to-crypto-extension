@@ -13,33 +13,15 @@ chrome.runtime.onMessage.addListener(async function (
 
     const priceInARS = await meli.getRatesAndCurrency(rateCode);
 
-    const priceToPay = meli.getPriceToPay();
-
-    const priceToPayElements = meli.getPricePayElement();
-
-    const priceDiscount = meli.getDiscount();
-
-    const priceDiscountElements = meli.getDiscountElement();
+    const pricingElements = meli.getPricingElements();
 
     const codeRate = meli.splitRateCode(rateCode);
 
     const decimals = meli.getCurrencyDecimal(rateCode);
 
-    meli.removeSymbolAndCents();
-
     // Main Price
     meli.changePricePage(
-      priceToPay,
-      priceToPayElements,
-      priceInARS,
-      codeRate,
-      decimals
-    );
-
-    // Discount Price
-    meli.changePricePage(
-      priceDiscount,
-      priceDiscountElements,
+      pricingElements,
       priceInARS,
       codeRate,
       decimals
