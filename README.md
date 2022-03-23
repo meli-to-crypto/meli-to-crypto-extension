@@ -5,7 +5,16 @@
 
 <h1 align="center">Meli a Crypto</h1>
 
----
+<div style="display: flex;
+justify-content: center;" >
+  
+![Chrome Web Store](https://img.shields.io/chrome-web-store/users/pabjndhejioccdbodimjhmgbjhhgphgl?label=Usuarios) 
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/pabjndhejioccdbodimjhmgbjhhgphgl?label=Rating) 
+![GitHub Repo stars](https://img.shields.io/github/stars/ferminrp/meli-to-crypto?label=Stars) 
+![Chrome Web Store](https://img.shields.io/chrome-web-store/v/pabjndhejioccdbodimjhmgbjhhgphgl?label=Version)
+![Top level language](https://img.shields.io/github/languages/top/ferminrp/meli-to-crypto)
+![Contributor](https://img.shields.io/github/contributors/ferminrp/meli-to-crypto)
+</div>
 
 ## 📝 Tabla de contenidos
 
