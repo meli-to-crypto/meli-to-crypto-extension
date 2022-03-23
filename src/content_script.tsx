@@ -15,31 +15,22 @@ async function retrieveRatesAndChangePage(rateCode: RatesPair) {
 
 (async function firstLoadOnPage() {
   const storage = await changeFavouriteRate();
-  console.log('🚀 => firstLoadOnPage => storage', storage);
-
   const ratePair: RatesPair = String(storage['favourite-rate']) as RatesPair;
-
   await retrieveRatesAndChangePage(ratePair);
 })();
 
 async function changeFavouriteRate(ratePair: RatesPair = RatesPair.USDT_ARS) {
   let storage = await chromeExtension.getStorage('favourite-rate');
-  console.log('🚀 => changeFavouriteRate => storage', storage);
-
   if (!storage) {
-    console.log('no deberia pasar');
     await chromeExtension.setStorage('favourite-rate', ratePair);
     storage = await chromeExtension.getStorage('favourite-rate');
   }
-  console.log('SI deberia pasar');
-
   return storage;
 }
 
 export async function setFavouriteRate(
   ratePair: RatesPair = RatesPair.USDT_ARS
 ) {
-  console.log('🚀 => ratePair', ratePair);
   await chromeExtension.setStorage('favourite-rate', ratePair);
 }
 
