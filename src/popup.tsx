@@ -37,22 +37,31 @@ const Popup = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
       if (tab.id) {
-        chrome.tabs.sendMessage(
-          tab.id,
-          {
-            rate: event.target.value
-          },
-          async (msg) => {
-            console.log('result message:', msg);
-          }
-        );
+        chrome.tabs.sendMessage(tab.id, {
+          rate: event.target.value
+        });
       }
     });
+  };
+
+  const handleFavouriteChange = async (event: any) => {
+    console.log('pasooo');
   };
 
   return (
     <>
       <h1 className="title">Convertir Meli a Crypto</h1>
+      <h3>Divisa preferida: </h3>
+      <div className="select">
+        <select className="select" onChange={handleFavouriteChange}>
+          {pairCode.map((option, i) => (
+            <option key={i} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <h3>Convetir a: </h3>
       <div className="select">
         <select className="select" onChange={handleChange}>
           {pairCode.map((option, i) => (
