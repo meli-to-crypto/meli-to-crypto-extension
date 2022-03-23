@@ -6,7 +6,6 @@ const meli = new Meli();
 const chromeExtension = new ChromeExtension();
 
 async function retrieveRatesAndChangePage(rateCode: RatesPair) {
-  console.log('🚀 => retrieveRatesAndChangePage => rateCode', rateCode);
   const priceInARS = await meli.getRatesAndCurrency(rateCode);
   const pricingElements = meli.getPricingElements();
   const codeRate = meli.splitRateCode(rateCode);
@@ -15,19 +14,34 @@ async function retrieveRatesAndChangePage(rateCode: RatesPair) {
 }
 
 (async function firstLoadOnPage() {
-  let storage = await chromeExtension.getStorage('favourite-rate');
+  const storage = await changeFavouriteRate();
   console.log('🚀 => firstLoadOnPage => storage', storage);
-
-  if (!storage.length) {
-    console.log('pasooo');
-    await chromeExtension.setStorage('favourite-rate', RatesPair.USDT_ARS);
-    storage = await chromeExtension.getStorage('favourite-rate');
-  }
 
   const ratePair: RatesPair = String(storage['favourite-rate']) as RatesPair;
 
   await retrieveRatesAndChangePage(ratePair);
 })();
+
+async function changeFavouriteRate(ratePair: RatesPair = RatesPair.USDT_ARS) {
+  let storage = await chromeExtension.getStorage('favourite-rate');
+  console.log('🚀 => changeFavouriteRate => storage', storage);
+
+  if (!storage) {
+    console.log('no deberia pasar');
+    await chromeExtension.setStorage('favourite-rate', ratePair);
+    storage = await chromeExtension.getStorage('favourite-rate');
+  }
+  console.log('SI deberia pasar');
+
+  return storage;
+}
+
+export async function setFavouriteRate(
+  ratePair: RatesPair = RatesPair.USDT_ARS
+) {
+  console.log('🚀 => ratePair', ratePair);
+  await chromeExtension.setStorage('favourite-rate', ratePair);
+}
 
 // Listen on rates change
 chrome.runtime.onMessage.addListener(async function (
