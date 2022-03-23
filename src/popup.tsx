@@ -35,7 +35,6 @@ const Popup = () => {
   ];
 
   const handleChange = async (event: any) => {
-    console.log('🚀 => event.target.value', event.target.value);
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
       if (tab.id) {
