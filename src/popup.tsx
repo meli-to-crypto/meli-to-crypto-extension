@@ -61,7 +61,7 @@ const Popup = () => {
           ))}
         </select>
       </div>
-      <h3>Convetir a: </h3>
+      <h3>Convertir a: </h3>
       <div className="select">
         <select className="select" onChange={handleChange}>
           {pairCode.map((option, i) => (
