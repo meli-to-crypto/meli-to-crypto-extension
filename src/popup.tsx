@@ -31,6 +31,10 @@ const Popup = () => {
     {
       label: RatesPair.BTC_ARS,
       value: RatesPair.BTC_ARS
+    },
+    {
+      label: RatesPair.SAT_ARS,
+      value: RatesPair.SAT_ARS
     }
   ];
 
