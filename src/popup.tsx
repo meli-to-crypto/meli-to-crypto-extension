@@ -3,6 +3,7 @@ import './popup.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { setFavouriteRate } from './content_script';
 import { RatesPair } from './models/crypto';
 
 const Popup = () => {
@@ -37,15 +38,10 @@ const Popup = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
       if (tab.id) {
-        chrome.tabs.sendMessage(
-          tab.id,
-          {
-            rate: event.target.value
-          },
-          async (msg) => {
-            console.log('result message:', msg);
-          }
-        );
+        chrome.tabs.sendMessage(tab.id, {
+          rate: event.target.value
+        });
+        setFavouriteRate(event.target.value);
       }
     });
   };
@@ -53,6 +49,7 @@ const Popup = () => {
   return (
     <>
       <h1 className="title">Convertir Meli a Crypto</h1>
+      <h3>Convertir a: </h3>
       <div className="select">
         <select className="select" onChange={handleChange}>
           {pairCode.map((option, i) => (
