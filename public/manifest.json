@@ -16,5 +16,6 @@
   "background": {
     "service_worker": "js/background.js"
   },
-  "host_permissions": ["https://*.mercadolibre.com.ar/*"]
+  "host_permissions": ["https://*.mercadolibre.com.ar/*"],
+  "permissions": ["storage"]
 }

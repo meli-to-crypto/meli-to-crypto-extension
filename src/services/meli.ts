@@ -31,22 +31,37 @@ export class Meli {
     decimals?: any
   ) {
     for (let i = 0; i < elements.length; i++) {
-      let price_symbol = elements[i].querySelector('.andes-money-amount__currency-symbol, .price-tag-symbol, .price-symbol');
-      let price_fraction = elements[i].querySelector('.andes-money-amount__fraction, .price-tag-fraction, .price-fraction');
-      let price_cents = elements[i].querySelector('.andes-money-amount__cents, .price-tag-cents, .price-cents');
+      const price_symbol = elements[i].querySelector(
+        '.andes-money-amount__currency-symbol, .price-tag-symbol, .price-symbol'
+      );
+      const price_fraction = elements[i].querySelector(
+        '.andes-money-amount__fraction, .price-tag-fraction, .price-fraction'
+      );
+      const price_cents = elements[i].querySelector(
+        '.andes-money-amount__cents, .price-tag-cents, .price-cents'
+      );
 
-      if (!price_symbol || !price_fraction)
-        continue;
+      if (!price_symbol || !price_fraction) continue;
       // Store original ARS pricing information on each pricing element
-      if (price_symbol.getAttribute('m2c-original') == null) {
+      if (!price_symbol.getAttribute('m2c-original')) {
         elements[i].setAttribute('m2c-original', 'stored');
         price_symbol.setAttribute('m2c-original', price_symbol.innerHTML);
-        price_fraction.setAttribute('m2c-original', this.parseOriginalPrice(price_fraction.innerHTML, price_cents?.innerHTML || "0"));
+        price_fraction.setAttribute(
+          'm2c-original',
+          this.parseOriginalPrice(
+            price_fraction.innerHTML,
+            price_cents?.innerHTML || '0'
+          )
+        );
       }
 
       price_symbol.innerHTML = rateCode;
-      price_fraction.innerHTML = currency.convertPrice(price_fraction.getAttribute('m2c-original'), priceInARS, decimals);
-      price_cents ? price_cents.innerHTML = '' : null;
+      price_fraction.innerHTML = currency.convertPrice(
+        price_fraction.getAttribute('m2c-original'),
+        priceInARS,
+        decimals
+      );
+      price_cents ? (price_cents.innerHTML = '') : null;
     }
   }
 

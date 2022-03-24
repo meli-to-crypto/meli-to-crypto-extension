@@ -28,11 +28,7 @@ export class Currency {
     return RatesDecimal[pairCode];
   }
 
-  convertPrice(
-    priceToPay: number,
-    priceInARS: number,
-    decimals?: number
-  ) {
+  convertPrice(priceToPay: number, priceInARS: number, decimals?: number) {
     return `${(priceToPay / priceInARS).toFixed(decimals)}`;
   }
 }
