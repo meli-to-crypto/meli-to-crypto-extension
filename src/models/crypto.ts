@@ -20,7 +20,8 @@ export const RatesDecimal = {
   'ETH/USDT': 2,
   'DAI/USDT': 2,
   'DAI/USDC': 2,
-  'USDC/USDT': 2
+  'USDC/USDT': 2,
+  'SAT/ARS': 0
 };
 
 export enum RatesPair {
@@ -36,5 +37,6 @@ export enum RatesPair {
   ETH_USDT = 'ETH/USDT',
   DAI_USDT = 'DAI/USDT',
   DAI_USDC = 'DAI/USDC',
-  USDC_USDT = 'USDC/USDT'
+  USDC_USDT = 'USDC/USDT',
+  SAT_ARS = 'SAT/ARS'
 }

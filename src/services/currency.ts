@@ -12,12 +12,28 @@ export class Currency {
       redirect: 'follow',
       referrerPolicy: 'no-referrer'
     };
-    return await this.fetchURL('https://api.belo.app/public/price', options);
+    const rates = await this.fetchURL('https://api.belo.app/public/price', options);
+    return this.addDerivedRates(rates);
   }
 
   async fetchURL(url = '', options = {}) {
     const response = await fetch(url, options);
     return response.json();
+  }
+
+  addDerivedRates(rates: Array<Belo>) {
+    const btcArs = this.getCurrency(rates, RatesPair.BTC_ARS);
+    if (!btcArs) {
+      return rates;
+    }
+
+    let satArs = btcArs;
+    satArs.pairCode = RatesPair.SAT_ARS;
+    satArs.ask = (parseFloat(satArs.ask) / 1e8).toString();
+    satArs.bid = (parseFloat(satArs.bid) / 1e8).toString();
+
+    rates.push(satArs);
+    return rates;
   }
 
   getCurrency(rates: Array<Belo>, pairCode: RatesPair) {
@@ -28,11 +44,7 @@ export class Currency {
     return RatesDecimal[pairCode];
   }
 
-  convertPrice(
-    priceToPay: number,
-    priceInARS: number,
-    decimals?: number
-  ) {
+  convertPrice(priceToPay: number, priceInARS: number, decimals?: number) {
     return `${(priceToPay / priceInARS).toFixed(decimals)}`;
   }
 }
