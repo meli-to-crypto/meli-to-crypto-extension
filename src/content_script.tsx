@@ -21,7 +21,7 @@ async function retrieveRatesAndChangePage(rateCode: RatesPair) {
 
 async function changeFavouriteRate(ratePair: RatesPair = RatesPair.USDT_ARS) {
   let storage = await chromeExtension.getStorage('favourite-rate');
-  if (!storage) {
+  if (!storage || !storage.hasOwnProperty('favourite-rate')) {
     await chromeExtension.setStorage('favourite-rate', ratePair);
     storage = await chromeExtension.getStorage('favourite-rate');
   }
