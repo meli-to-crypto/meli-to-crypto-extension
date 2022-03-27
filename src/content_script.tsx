@@ -24,8 +24,8 @@ async function retrieveRatesAndChangePage(rateCode: RatesPair) {
 }
 
 (async function firstLoadOnPage() {
-  const defaultFav = await getFavouriteRate();
-  console.log('Default value:', defaultFav);
+  // const defaultFav = await getFavouriteRate();
+  // console.log('Default value:', defaultFav);
   
   const storage = await changeFavouriteRate();
   const ratePair: RatesPair = String(storage['favourite-rate']) as RatesPair;

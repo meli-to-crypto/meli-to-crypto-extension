@@ -1,6 +1,6 @@
 import './popup.scss';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import { getFavouriteRate, setFavouriteRate } from './content_script';
