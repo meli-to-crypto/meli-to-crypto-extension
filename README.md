@@ -54,6 +54,10 @@ Y después
 npm run watch
 ```
 
+### Build para uso normal
+
+```npm run build``` -> Importar únicamente carpeta `dist` en `chrome://extensions`.
+
 ## ⛏️ Construido usando <a name = "built_using"></a>
 
 - [React](https://reactjs.org/) - Frontend

@@ -6,14 +6,27 @@ const meli = new Meli();
 const chromeExtension = new ChromeExtension();
 
 async function retrieveRatesAndChangePage(rateCode: RatesPair) {
+  if (rateCode === RatesPair.ARS_ARS) {
+    meli.revertToOriginal();
+    return;
+  }
+  /**
+   * Cotización de la coin VS el peso. Ej. DAI/ARS -returns-> "189.03"
+   */
   const priceInARS = await meli.getRatesAndCurrency(rateCode);
   const pricingElements = meli.getPricingElements();
+  /**
+   * Ej: "DAI"
+   */
   const codeRate = meli.splitRateCode(rateCode);
   const decimals = meli.getCurrencyDecimal(rateCode);
   meli.changePricePage(pricingElements, priceInARS, codeRate, decimals);
 }
 
 (async function firstLoadOnPage() {
+  // const defaultFav = await getFavouriteRate();
+  // console.log('Default value:', defaultFav);
+  
   const storage = await changeFavouriteRate();
   const ratePair: RatesPair = String(storage['favourite-rate']) as RatesPair;
   await retrieveRatesAndChangePage(ratePair);
@@ -32,6 +45,11 @@ export async function setFavouriteRate(
   ratePair: RatesPair = RatesPair.USDT_ARS
 ) {
   await chromeExtension.setStorage('favourite-rate', ratePair);
+}
+
+export async function getFavouriteRate(): Promise<string> {
+  const defaultValue =  await chromeExtension.getStorage('favourite-rate') || '';
+  return (defaultValue['favourite-rate']) ? defaultValue['favourite-rate'] : RatesPair.ARS_ARS;
 }
 
 // Listen on rates change

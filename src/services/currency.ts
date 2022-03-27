@@ -16,18 +16,47 @@ export class Currency {
     return this.addDerivedRates(rates);
   }
 
+  delay(ms: number){
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
+
   async fetchURL(url = '', options = {}) {
-    const response = await fetch(url, options);
-    return response.json();
+    let isLoading = true;
+    let output: Belo[] = [];
+    let retries = 0;
+    let errorMsg = '';
+    const MAX_RETRIES = 6;
+    while (isLoading && retries <= MAX_RETRIES) {
+      try {
+        const response = await fetch(url, options);
+        isLoading = false;
+        output = await response.json() as Belo[];
+      } catch (e) {
+        retries++
+        console.log('Belo API didn\'t respond. Attempt number:', retries);
+        // Will go -> 200,400,800,1600,3200,6400,12800 (ms).
+        const exponentialRetry = ((2**retries) * 100); // https://docs.aws.amazon.com/es_es/general/latest/gr/api-retries.html
+        await this.delay(exponentialRetry);
+        errorMsg = JSON.stringify(e);
+      }
+    }
+    if (isLoading) {
+      alert('No se pudo consultar las cotizaciones.')
+    }
+    return output;
   }
 
   addDerivedRates(rates: Array<Belo>) {
     const btcArs = this.getCurrency(rates, RatesPair.BTC_ARS);
+    
     if (!btcArs) {
       return rates;
     }
 
-    let satArs = btcArs;
+    // Prevent call by reference
+    let satArs = {
+      ...btcArs
+    }
     satArs.pairCode = RatesPair.SAT_ARS;
     satArs.ask = (parseFloat(satArs.ask) / 1e8).toString();
     satArs.bid = (parseFloat(satArs.bid) / 1e8).toString();

@@ -1,16 +1,16 @@
 import './popup.scss';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import { setFavouriteRate } from './content_script';
+import { getFavouriteRate, setFavouriteRate } from './content_script';
 import { RatesPair } from './models/crypto';
 
 const Popup = () => {
   const pairCode = [
     {
-      label: 'Seleccionar',
-      value: RatesPair.USDT_ARS
+      label: 'Por defecto (ARS)',
+      value: RatesPair.ARS_ARS
     },
     {
       label: RatesPair.DAI_ARS,
@@ -38,14 +38,29 @@ const Popup = () => {
     }
   ];
 
+  const [defaultPair, setDefaultPair] = useState<RatesPair>(RatesPair.ARS_ARS);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getDefaultPair = async() => {
+      const dP = await getFavouriteRate() as RatesPair;
+      setDefaultPair(dP)
+      setLoading(false);
+    }
+    getDefaultPair()
+  }, [])
+  
+  
   const handleChange = async (event: any) => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
       if (tab.id) {
+        const userQuery = event.target.value;
+        // console.log('New query:', userQuery);
         chrome.tabs.sendMessage(tab.id, {
-          rate: event.target.value
+          rate: userQuery
         });
-        setFavouriteRate(event.target.value);
+        setFavouriteRate(userQuery);
       }
     });
   };
@@ -55,13 +70,21 @@ const Popup = () => {
       <h1 className="title">Convertir Meli a Crypto</h1>
       <h3>Convertir a: </h3>
       <div className="select">
-        <select className="select" onChange={handleChange}>
-          {pairCode.map((option, i) => (
-            <option key={i} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+        {
+          loading ?
+          <h3>Cargando...</h3>
+          :
+          <select className="select" onChange={handleChange} defaultValue={defaultPair}>
+            {pairCode.map((option, i) => {
+              return (
+                <option key={i} value={option.value}>
+                  {option.label}
+                </option>
+              )
+            })}
+          </select>
+          
+        }
       </div>
     </>
   );
