@@ -23,11 +23,15 @@ export class Currency {
 
   addDerivedRates(rates: Array<Belo>) {
     const btcArs = this.getCurrency(rates, RatesPair.BTC_ARS);
+    
     if (!btcArs) {
       return rates;
     }
 
-    let satArs = btcArs;
+    // Prevent call by reference
+    let satArs = {
+      ...btcArs
+    }
     satArs.pairCode = RatesPair.SAT_ARS;
     satArs.ask = (parseFloat(satArs.ask) / 1e8).toString();
     satArs.bid = (parseFloat(satArs.bid) / 1e8).toString();

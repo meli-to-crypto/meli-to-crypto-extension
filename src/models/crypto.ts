@@ -8,6 +8,7 @@ export interface Belo {
 }
 
 export const RatesDecimal = {
+  'ARS/ARS': 0,
   'BTC/ARS': 5,
   'ETH/ARS': 4,
   'DAI/ARS': 2,
@@ -25,6 +26,7 @@ export const RatesDecimal = {
 };
 
 export enum RatesPair {
+  ARS_ARS = 'ARS/ARS',
   BTC_ARS = 'BTC/ARS',
   ETH_ARS = 'ETH/ARS',
   DAI_ARS = 'DAI/ARS',
