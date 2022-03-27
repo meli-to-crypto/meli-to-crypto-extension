@@ -10,6 +10,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.mercadolibre.com.ar/*"],
+      "run_at": "document_idle",
       "js": ["js/vendor.js", "js/content_script.js"]
     }
   ],
