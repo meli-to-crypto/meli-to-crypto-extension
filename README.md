@@ -18,12 +18,13 @@ justify-content: center;" >
 
 ## 📝 Tabla de contenidos
 
-- [Acerca](#acerca)
-- [Descarga](#descarga)
-- [Comenzar con el projecto](#getting_started)
-- [Deployment](#deployment)
-- [Construido con](#built_using)
-- [Autores](#authors)
+- [📝 Tabla de contenidos](#-tabla-de-contenidos)
+- [🧐 Acerca <a name = "acerca"></a>](#-acerca-)
+- [⏬ Descarga <a name = "descarga"></a>](#-descarga-)
+- [🏁 Comenzar con el projecto <a name = "getting_started"></a>](#-comenzar-con-el-projecto-)
+- [💻 Deployment](#-deployment)
+- [⛏️ Construido usando <a name = "built_using"></a>](#️-construido-usando-)
+- [✍️ Autores <a name = "authors"></a>](#️-autores-)
 
 ## 🧐 Acerca <a name = "acerca"></a>
 
@@ -34,6 +35,8 @@ Esta extension convierte los precios en mercado libre argentina a USDT usando la
 La extension puede descargarse desde [este link](https://chrome.google.com/webstore/detail/meli-a-usdt/pabjndhejioccdbodimjhmgbjhhgphgl)
 
 ## 🏁 Comenzar con el projecto <a name = "getting_started"></a>
+
+Tenemos un servidor en discord en donde podes pedir ayuda y proponer cosas. Sumate [acá](https://discord.gg/mGJ9fYwRZB).
 
 Estas instrucciones le proporcionarán una copia del proyecto en funcionamiento en su máquina local para fines de desarrollo y prueba. Consulte [Deployment](#deployment) para obtener notas sobre cómo implementar el proyecto en un sistema en vivo.
 
