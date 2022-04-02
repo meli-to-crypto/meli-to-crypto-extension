@@ -3,7 +3,7 @@ import './popup.scss';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material';
+import { Box, FormControl, Link, MenuItem, Select, Typography } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import * as crypto from '@styled-icons/crypto';
 
@@ -114,6 +114,12 @@ const Popup = () => {
             </Select>
           )}
         </FormControl>
+        <Link
+          href="https://github.com/meli-to-crypto/meli-to-crypto-extension"
+          target="_blank"
+        >
+          Github
+        </Link>
       </Box>
     </>
   );
