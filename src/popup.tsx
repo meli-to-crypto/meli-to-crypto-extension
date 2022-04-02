@@ -3,7 +3,7 @@ import './popup.scss';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import { getFavouriteRate, setFavouriteRate } from './content_script';
 import { RatesPair, RatesPairLabel } from './models/crypto';
@@ -68,41 +68,29 @@ const Popup = () => {
 
   return (
     <>
-      <h1 className="title">Meli a Crypto</h1>
-      <FormControl fullWidth>
-        <InputLabel>Convertir a:</InputLabel>
-        <Select
-          className="select"
-          label="Age"
-          onChange={handleChange}
-          defaultValue={defaultPair}
-        >
-          {pairCode.map((option, i) => {
-            return (
-              <MenuItem key={i} value={option.value}>
-                {option.label}
-              </MenuItem>
-            );
-          })}
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      {/* 
-      <div className="select">
-        {loading ? (
-          <h3>Cargando...</h3>
-        ) : (
-          <select
-            className="select"
-            onChange={handleChange}
-            defaultValue={defaultPair}
-          >
-            
-          </select>
-        )}
-      </div> */}
+      <Box sx={{ minWidth: 120 }}>
+        <h1 className="title">Meli a Crypto</h1>
+        <FormControl fullWidth>
+          <InputLabel>Convertir a:</InputLabel>
+          {loading ? (
+            <h3>Cargando...</h3>
+          ) : (
+            <Select
+              className="select"
+              onChange={handleChange}
+              defaultValue={defaultPair}
+            >
+              {pairCode.map((option, i) => {
+                return (
+                  <MenuItem key={i} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          )}
+        </FormControl>
+      </Box>
     </>
   );
 };
