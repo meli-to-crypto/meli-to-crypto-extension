@@ -79,17 +79,22 @@ const Popup = () => {
       <Box
         sx={{
           width: 250,
-          height: 300,
           p: 1,
           textAlign: 'center'
         }}
       >
-        <Typography variant="h4">Meli a Crypto</Typography>
+        <Typography variant="h4" fontWeight={800} paddingTop="0.8em">
+          Meli a Crypto
+        </Typography>
         <FormControl sx={{ py: 4 }} fullWidth>
           {loading ? (
             <h3>Cargando...</h3>
           ) : (
-            <Select onChange={handleChange} defaultValue={defaultPair}>
+            <Select
+              onChange={handleChange}
+              defaultValue={defaultPair}
+              sx={{ backgroundColor: 'white' }}
+            >
               {pairCode.map((option, i) => {
                 return (
                   <MenuItem key={i} value={option.value}>
