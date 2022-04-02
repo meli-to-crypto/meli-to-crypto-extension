@@ -3,7 +3,7 @@ import './popup.scss';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material';
 
 import { getFavouriteRate, setFavouriteRate } from './content_script';
 import { RatesPair, RatesPairLabel } from './models/crypto';
@@ -68,18 +68,20 @@ const Popup = () => {
 
   return (
     <>
-      <Box sx={{ minWidth: 120 }}>
-        <h1 className="title">Meli a Crypto</h1>
+      <Box
+        sx={{
+          width: 300,
+          height: 300,
+          p: 1,
+          textAlign: 'center'
+        }}
+      >
+        <Typography variant="h4">Meli a Crypto</Typography>
         <FormControl fullWidth>
-          <InputLabel>Convertir a:</InputLabel>
           {loading ? (
             <h3>Cargando...</h3>
           ) : (
-            <Select
-              className="select"
-              onChange={handleChange}
-              defaultValue={defaultPair}
-            >
+            <Select onChange={handleChange} defaultValue={defaultPair}>
               {pairCode.map((option, i) => {
                 return (
                   <MenuItem key={i} value={option.value}>
