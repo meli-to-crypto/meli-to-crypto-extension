@@ -42,3 +42,13 @@ export enum RatesPair {
   USDC_USDT = 'USDC/USDT',
   SAT_ARS = 'SAT/ARS'
 }
+
+export enum RatesPairLabel {
+  DEFAULT = 'Por defecto (ARS)',
+  BTC = 'BTC',
+  ETH = 'ETH',
+  DAI = 'DAI',
+  USDT = 'USDT',
+  USDC = 'USDC',
+  SAT = 'SAT'
+}
