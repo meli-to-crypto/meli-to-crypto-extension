@@ -78,7 +78,7 @@ const Popup = () => {
     <>
       <Box
         sx={{
-          width: 300,
+          width: 250,
           height: 300,
           p: 1,
           textAlign: 'center'
@@ -93,8 +93,16 @@ const Popup = () => {
               {pairCode.map((option, i) => {
                 return (
                   <MenuItem key={i} value={option.value}>
-                    <ListItemIcon>{option.icon}</ListItemIcon>
-                    {option.label}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexWrap: 'wrap'
+                      }}
+                    >
+                      <ListItemIcon sx={{ pl: 2 }}>{option.icon}</ListItemIcon>
+                      <Typography>{option.label}</Typography>
+                    </div>
                   </MenuItem>
                 );
               })}
