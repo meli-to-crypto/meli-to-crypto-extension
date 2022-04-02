@@ -52,3 +52,9 @@ export enum RatesPairLabel {
   USDC = 'USDC',
   SAT = 'SAT'
 }
+
+export interface PairCode {
+  label: RatesPairLabel;
+  value: RatesPair;
+  icon?: any;
+}

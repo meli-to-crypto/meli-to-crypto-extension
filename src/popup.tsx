@@ -4,39 +4,48 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import * as crypto from '@styled-icons/crypto';
 
 import { getFavouriteRate, setFavouriteRate } from './content_script';
-import { RatesPair, RatesPairLabel } from './models/crypto';
+import { PairCode, RatesPair, RatesPairLabel } from './models/crypto';
 
 const Popup = () => {
-  const pairCode = [
+  //TODO: Refactor this later to accept any dynamic attribute in the icon key value pair
+  const pairCode: PairCode[] = [
     {
       label: RatesPairLabel.DEFAULT,
       value: RatesPair.ARS_ARS
     },
     {
       label: RatesPairLabel.DAI,
-      value: RatesPair.DAI_ARS
+      value: RatesPair.DAI_ARS,
+      icon: <crypto.Dai size="32" />
     },
     {
       label: RatesPairLabel.USDC,
-      value: RatesPair.USDC_ARS
+      value: RatesPair.USDC_ARS,
+      icon: <crypto.Usdc size="32" />
     },
     {
       label: RatesPairLabel.USDT,
-      value: RatesPair.USDT_ARS
+      value: RatesPair.USDT_ARS,
+      icon: <crypto.Usdt size="32" />
     },
     {
       label: RatesPairLabel.ETH,
-      value: RatesPair.ETH_ARS
+      value: RatesPair.ETH_ARS,
+      icon: <crypto.Eth size="32" />
     },
     {
       label: RatesPairLabel.BTC,
-      value: RatesPair.BTC_ARS
+      value: RatesPair.BTC_ARS,
+      icon: <crypto.Btc size="32" />
     },
     {
       label: RatesPairLabel.SAT,
-      value: RatesPair.SAT_ARS
+      value: RatesPair.SAT_ARS,
+      icon: <crypto.Btc size="32" />
     }
   ];
 
@@ -57,7 +66,6 @@ const Popup = () => {
       const tab = tabs[0];
       if (tab.id) {
         const userQuery = event.target.value;
-        // console.log('New query:', userQuery);
         chrome.tabs.sendMessage(tab.id, {
           rate: userQuery
         });
@@ -77,7 +85,7 @@ const Popup = () => {
         }}
       >
         <Typography variant="h4">Meli a Crypto</Typography>
-        <FormControl fullWidth>
+        <FormControl sx={{ py: 4 }} fullWidth>
           {loading ? (
             <h3>Cargando...</h3>
           ) : (
@@ -85,6 +93,7 @@ const Popup = () => {
               {pairCode.map((option, i) => {
                 return (
                   <MenuItem key={i} value={option.value}>
+                    <ListItemIcon>{option.icon}</ListItemIcon>
                     {option.label}
                   </MenuItem>
                 );
