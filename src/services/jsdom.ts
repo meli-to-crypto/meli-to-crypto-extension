@@ -3,18 +3,18 @@ export class JSDOM {
     return document.getElementsByClassName(elementName);
   }
 
-  getElementByQuerySelector(elementName: any) {
+  getElementByQuerySelector(elementName: string) {
     return document.querySelector(elementName);
   }
 
-  getElementByQuerySelectorAll(elementName: any) {
+  getElementByQuerySelectorAll(elementName: string) {
     return document.querySelectorAll(elementName);
   }
 
   removeElement(elementName: any) {
     const element = this.getElementByQuerySelectorAll(elementName);
     for (let i = 0; i < element.length; i++) {
-      element[i].parentNode.removeChild(element[i]);
+      element[i]?.parentNode?.removeChild(element[i]);
     }
   }
 }
