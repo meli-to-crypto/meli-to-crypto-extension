@@ -24,9 +24,6 @@ async function retrieveRatesAndChangePage(rateCode: RatesPair) {
 }
 
 (async function firstLoadOnPage() {
-  // const defaultFav = await getFavouriteRate();
-  // console.log('Default value:', defaultFav);
-  
   const storage = await changeFavouriteRate();
   const ratePair: RatesPair = String(storage['favourite-rate']) as RatesPair;
   await retrieveRatesAndChangePage(ratePair);
@@ -48,8 +45,11 @@ export async function setFavouriteRate(
 }
 
 export async function getFavouriteRate(): Promise<string> {
-  const defaultValue =  await chromeExtension.getStorage('favourite-rate') || '';
-  return (defaultValue['favourite-rate']) ? defaultValue['favourite-rate'] : RatesPair.ARS_ARS;
+  const defaultValue =
+    (await chromeExtension.getStorage('favourite-rate')) || '';
+  return defaultValue['favourite-rate']
+    ? defaultValue['favourite-rate']
+    : RatesPair.ARS_ARS;
 }
 
 // Listen on rates change
