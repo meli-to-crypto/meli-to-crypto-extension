@@ -10,6 +10,10 @@
     "style": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.5.3",
+    "@styled-icons/crypto": "^10.38.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
