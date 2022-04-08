@@ -15,7 +15,8 @@ const Popup = () => {
   const pairCode: PairCode[] = [
     {
       label: RatesPairLabel.DEFAULT,
-      value: RatesPair.ARS_ARS
+      value: RatesPair.ARS_ARS,
+      icon: <crypto.Usd size="32" />
     },
     {
       label: RatesPairLabel.DAI,
@@ -105,7 +106,7 @@ const Popup = () => {
                         flexWrap: 'wrap'
                       }}
                     >
-                      <ListItemIcon sx={{ pl: 2 }}>{option.icon}</ListItemIcon>
+                      <ListItemIcon>{option.icon}</ListItemIcon>
                       <Typography>{option.label}</Typography>
                     </div>
                   </MenuItem>
