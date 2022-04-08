@@ -10,15 +10,19 @@
     "style": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.5.3",
+    "@styled-icons/crypto": "^10.38.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.158",
+    "@types/chrome": "0.0.180",
     "@types/jest": "^27.0.2",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "copy-webpack-plugin": "^9.0.1",
+    "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "glob": "^7.1.6",
     "jest": "^27.2.1",
@@ -28,7 +32,7 @@
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "ts-jest": "^27.0.5",
-    "ts-loader": "^8.0.0",
+    "ts-loader": "^9.2.8",
     "typescript": "^4.4.3 ",
     "webpack": "^5.0.0",
     "webpack-cli": "^4.0.0",

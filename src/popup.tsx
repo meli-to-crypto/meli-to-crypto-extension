@@ -3,38 +3,49 @@ import './popup.scss';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
+import { Box, FormControl, Link, MenuItem, Select, Typography } from '@mui/material';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import * as crypto from '@styled-icons/crypto';
+
 import { getFavouriteRate, setFavouriteRate } from './content_script';
-import { RatesPair } from './models/crypto';
+import { PairCode, RatesPair, RatesPairLabel } from './models/crypto';
 
 const Popup = () => {
-  const pairCode = [
+  //TODO: Refactor this later to accept any dynamic attribute in the icon key value pair
+  const pairCode: PairCode[] = [
     {
-      label: 'Por defecto (ARS)',
+      label: RatesPairLabel.DEFAULT,
       value: RatesPair.ARS_ARS
     },
     {
-      label: RatesPair.DAI_ARS,
-      value: RatesPair.DAI_ARS
+      label: RatesPairLabel.DAI,
+      value: RatesPair.DAI_ARS,
+      icon: <crypto.Dai size="32" />
     },
     {
-      label: RatesPair.USDC_ARS,
-      value: RatesPair.USDC_ARS
+      label: RatesPairLabel.USDC,
+      value: RatesPair.USDC_ARS,
+      icon: <crypto.Usdc size="32" />
     },
     {
-      label: RatesPair.USDT_ARS,
-      value: RatesPair.USDT_ARS
+      label: RatesPairLabel.USDT,
+      value: RatesPair.USDT_ARS,
+      icon: <crypto.Usdt size="32" />
     },
     {
-      label: RatesPair.ETH_ARS,
-      value: RatesPair.ETH_ARS
+      label: RatesPairLabel.ETH,
+      value: RatesPair.ETH_ARS,
+      icon: <crypto.Eth size="32" />
     },
     {
-      label: RatesPair.BTC_ARS,
-      value: RatesPair.BTC_ARS
+      label: RatesPairLabel.BTC,
+      value: RatesPair.BTC_ARS,
+      icon: <crypto.Btc size="32" />
     },
     {
-      label: RatesPair.SAT_ARS,
-      value: RatesPair.SAT_ARS
+      label: RatesPairLabel.SAT,
+      value: RatesPair.SAT_ARS,
+      icon: <crypto.Btc size="32" />
     }
   ];
 
@@ -42,21 +53,19 @@ const Popup = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getDefaultPair = async() => {
-      const dP = await getFavouriteRate() as RatesPair;
-      setDefaultPair(dP)
+    const getDefaultPair = async () => {
+      const dP = (await getFavouriteRate()) as RatesPair;
+      setDefaultPair(dP);
       setLoading(false);
-    }
-    getDefaultPair()
-  }, [])
-  
-  
+    };
+    getDefaultPair();
+  }, []);
+
   const handleChange = async (event: any) => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
       if (tab.id) {
         const userQuery = event.target.value;
-        // console.log('New query:', userQuery);
         chrome.tabs.sendMessage(tab.id, {
           rate: userQuery
         });
@@ -67,25 +76,51 @@ const Popup = () => {
 
   return (
     <>
-      <h1 className="title">Convertir Meli a Crypto</h1>
-      <h3>Convertir a: </h3>
-      <div className="select">
-        {
-          loading ?
-          <h3>Cargando...</h3>
-          :
-          <select className="select" onChange={handleChange} defaultValue={defaultPair}>
-            {pairCode.map((option, i) => {
-              return (
-                <option key={i} value={option.value}>
-                  {option.label}
-                </option>
-              )
-            })}
-          </select>
-          
-        }
-      </div>
+      <Box
+        sx={{
+          width: 250,
+          p: 1,
+          textAlign: 'center'
+        }}
+      >
+        <Typography variant="h4" fontWeight={800} paddingTop="0.8em">
+          Meli a Crypto
+        </Typography>
+        <FormControl sx={{ py: 4 }} fullWidth>
+          {loading ? (
+            <h3>Cargando...</h3>
+          ) : (
+            <Select
+              onChange={handleChange}
+              defaultValue={defaultPair}
+              sx={{ backgroundColor: 'white' }}
+            >
+              {pairCode.map((option, i) => {
+                return (
+                  <MenuItem key={i} value={option.value}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexWrap: 'wrap'
+                      }}
+                    >
+                      <ListItemIcon sx={{ pl: 2 }}>{option.icon}</ListItemIcon>
+                      <Typography>{option.label}</Typography>
+                    </div>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          )}
+        </FormControl>
+        <Link
+          href="https://github.com/meli-to-crypto/meli-to-crypto-extension"
+          target="_blank"
+        >
+          Github
+        </Link>
+      </Box>
     </>
   );
 };
