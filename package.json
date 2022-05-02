@@ -16,7 +16,7 @@
   "devDependencies": {
     "@types/chrome": "0.0.180",
     "@types/jest": "^27.0.2",
-    "@types/react": "^17.0.0",
+    "@types/react": "^18.0.8",
     "@types/react-dom": "^17.0.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
