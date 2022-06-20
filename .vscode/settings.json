@@ -1,12 +1,17 @@
 {
-    "typescript.tsdk": "./node_modules/typescript/lib",
-    "files.eol": "\n",
-    "json.schemas": [
-        {
-            "fileMatch": [
-                "/manifest.json"
-            ],
-            "url": "http://json.schemastore.org/chrome-manifest"
-        }
-    ]
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "files.eol": "\n",
+  "json.schemas": [
+    {
+      "fileMatch": ["/manifest.json"],
+      "url": "http://json.schemastore.org/chrome-manifest"
+    }
+  ],
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "docwriter.style": "JSDoc",
+  "prettier.configPath": ".prettierrc",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false
 }
